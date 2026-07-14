@@ -47,6 +47,7 @@ body {
     margin-bottom: 25px;
     width: 100%;
     max-width: 800px;
+    flex-wrap: wrap;
 }
 
 .control-panel button {
@@ -174,12 +175,11 @@ body {
     transition: all 0.2s;
 }
 
-/* 🛠️ 终极清洗：生词测试选项 Mouse over 时，换成完美的清爽浅蓝色调 */
 .quiz-opt-btn:hover {
-    background: #f0f7fc !important;      
-    border-color: #3498db !important;    
-    color: #2980b9 !important;           
-    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.1) !important; 
+    background: #f0f7fc !important;
+    border-color: #3498db !important;
+    color: #2980b9 !important;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.1) !important;
     transform: translateY(-1px);
 }
 
@@ -197,24 +197,6 @@ body {
     cursor: not-allowed;
     box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
 }
-
-/* ==========================================================================
-   ⚙️ 针对生词测试大字标题（ID: quizQuestion）的专属跨模式控色补丁
-   ========================================================================== */
-/* ☀️ 日间模式下大生词换成高档的国风深墨黑 */
-#quizQuestion {
-    font-size: 36px;
-    font-weight: bold;
-    color: #2c3e50 !important;
-    letter-spacing: 2px;
-    transition: color 0.3s ease;
-}
-
-/* 🌙 暗黑模式适配：大生词自动转为清晰的纯白色 */
-[data-theme="dark"] #quizQuestion {
-    color: #ffffff !important;
-}
-
 
 /* 📖 课文文章卡片 */
 .article-card {
@@ -277,8 +259,8 @@ ruby {
 }
 
 ruby:hover, ruby.is-active {
-    background: #fff3cd; /* 悬停时字底变浅黄 */
-    color: #d35400;      /* 字变暖橙色 */
+    background: #fff3cd;
+    color: #d35400;
 }
 
 [data-theme="dark"] ruby:hover, [data-theme="dark"] ruby.is-active {
@@ -357,6 +339,10 @@ ruby:hover, ruby.is-active {
     margin-top: 1px;
 }
 
+/* 🆕 中文释义样式 */
+.pop-zh { color: #2c3e50; }
+.pop-zh .pop-tag { background: #2c3e50; }
+
 .pop-en { color: #2980b9; }
 .pop-en .pop-tag { background: #3498db; }
 
@@ -397,15 +383,22 @@ ruby:hover, ruby.is-active {
     transform: translateX(-50%);
 }
 
+/* 📱 响应式适配移动端手机 */
+@media (max-width: 600px) {
+    body { padding: 15px 10px; }
+    .article-card { padding: 30px 20px; }
+    #content p { font-size: 17px; }
+    .quiz-options { grid-template-columns: 1fr; }
+}
+
 /* ==========================================================================
-   ✨ 10道阅读理解选择题特制高级动态交互美化样式
+   ✨ 阅读理解选择题特制高级动态交互美化样式
    ========================================================================== */
 .quiz-choice-btn {
     position: relative;
     transition: all 0.15s ease !important;
 }
 
-/* 允许用户在点击时有一个轻微的打击感压陷反馈 */
 .quiz-choice-btn:active:not(:disabled) {
     transform: scale(0.995);
 }
@@ -453,7 +446,6 @@ ruby:hover, ruby.is-active {
     color: #e0e0e0 !important; 
 }
 
-/* 暗黑模式未选中按钮状态 */
 [data-theme="dark"] .quiz-choice-btn {
     background: #2d2d2d !important;
     color: #e0e0e0 !important;
@@ -463,7 +455,6 @@ ruby:hover, ruby.is-active {
     background: #3d3d3d !important;
 }
 
-/* 🌟 🌙 暗黑模式下：选中的科技荧光蓝样式 */
 [data-theme="dark"] .quiz-choice-btn.selected {
     background: #1a252f !important;      
     border: 2px solid #3498db !important; 
@@ -472,7 +463,6 @@ ruby:hover, ruby.is-active {
     box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3) !important;
 }
 
-/* 🟢 🌙 暗黑模式下：揭晓正确答案的【浅绿夜色版】卡片风格 */
 [data-theme="dark"] .quiz-choice-btn.correct-answer-hint {
     background: #1e2d24 !important;       
     border: 2px solid #2ecc71 !important; 
@@ -504,12 +494,4 @@ ruby:hover, ruby.is-active {
     background: #1d1226 !important;       
     border-left: 3px solid #a278b5 !important;   
     color: #d7bde2 !important;             
-}
-
-/* 📱 响应式适配移动端手机 */
-@media (max-width: 600px) {
-    body { padding: 15px 10px; }
-    .article-card { padding: 30px 20px; }
-    #content p { font-size: 17px; }
-    .quiz-options { grid-template-columns: 1fr; }
 }
