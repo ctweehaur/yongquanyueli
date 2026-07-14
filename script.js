@@ -88,7 +88,6 @@ function render() {
                 pAnalysis.style.fontSize = "13.5px";
                 pAnalysis.style.borderRadius = "4px";
                 pAnalysis.style.textIndent = "0";
-                // ✅ 已删除 "🔍 第 X 段文本赏析：" 前缀
                 pAnalysis.innerHTML = lessonTeacherAnalysis.paragraphs[pNum];
                 
                 pAnalysis.style.display = isTeacherMode ? "block" : "none";
@@ -351,6 +350,8 @@ function openPop(el, i) {
     currentIdx = i; const d = lessonData[i];
     document.getElementById('popWord').innerText = d[0];
     document.getElementById('popPinyin').innerText = `[${d[1]}]`;
+    // 🆕 添加白话中文支持（第5列）
+    document.getElementById('popZh').innerText = d[4] || d[0];
     document.getElementById('popEn').innerText = d[2]; 
     document.getElementById('popBm').innerText = d[3];
     
