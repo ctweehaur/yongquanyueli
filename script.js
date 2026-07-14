@@ -88,7 +88,8 @@ function render() {
                 pAnalysis.style.fontSize = "13.5px";
                 pAnalysis.style.borderRadius = "4px";
                 pAnalysis.style.textIndent = "0";
-                pAnalysis.innerHTML = `<strong>🔍 第 ${pNum} 段文本赏析：</strong>${lessonTeacherAnalysis.paragraphs[pNum]}`;
+                // ✅ 已删除 "🔍 第 X 段文本赏析：" 前缀
+                pAnalysis.innerHTML = lessonTeacherAnalysis.paragraphs[pNum];
                 
                 pAnalysis.style.display = isTeacherMode ? "block" : "none";
                 cnt.appendChild(pAnalysis);
