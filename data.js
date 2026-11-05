@@ -1,13 +1,14 @@
 // ==========================================================================
-// 📚 《涌泉跃鲤》课文词典与分段数据集 (data.js) - 独立『译』标签 5元素标准版
+// 📚 《涌泉跃鲤》课文词典与分段数据集 (data.js) - 专名号下划线 & 独立『译』标签版
 // ==========================================================================
 
 const lessonTitle = "涌泉跃鲤";
 
 const lessonData = [
     // ===== 第1段 =====
-    ["汉", "hàn", "Han Dynasty", "Dinasti Han", "汉朝（东汉）"],
-    ["姜诗", "jiāng shī", "Jiang Shi (person's name)", "Jiang Shi (nama orang)", "人名，东汉广汉人"],
+    // 格式：["字词", "拼音", "EN 英文", "BM 马来文", "译 中文白话", "u (可选：专名下划线)"]
+    ["汉", "hàn", "Han Dynasty", "Dinasti Han", "汉朝（东汉）", "u"],
+    ["姜诗", "jiāng shī", "Jiang Shi (person's name)", "Jiang Shi (nama orang)", "人名，东汉广汉人", "u"],
     ["，", "", "", "", ""],
     ["事", "shì", "serve / wait upon", "melayani / berbakti kepada", "侍奉、奉养"],
     ["母", "mǔ", "mother", "ibu", "母亲"],
@@ -15,7 +16,7 @@ const lessonData = [
     ["孝", "xiào", "filial", "taat dan berbakti", "孝顺"],
     ["。", "", "", "", ""],
     ["妻", "qī", "wife", "isteri", "妻子"],
-    ["庞氏", "páng shì", "Madam Pang", "Puan Pang", "庞氏（姜诗的妻子）"],
+    ["庞氏", "páng shì", "Madam Pang", "Puan Pang", "庞氏（姜诗的妻子）", "u"],
     ["，", "", "", "", ""],
     ["奉", "fèng", "wait upon respectfully", "melayani dengan hormat", "侍奉、伺候"],
     ["姑", "gū", "husband's mother (mother-in-law)", "ibu mertua", "婆婆（丈夫的母亲）"],
@@ -78,7 +79,7 @@ const lessonData = [
     ["\n", "", "", "", ""], // 👈 出处（自动右对齐落款）
 
     ["（", "", "", "", ""],
-    ["郭居敬", "guō jū jìng", "Guo Jujing", "Guo Jujing", "元代学者，《二十四孝》编者"],
+    ["郭居敬", "guō jū jìng", "Guo Jujing", "Guo Jujing", "元代学者，《二十四孝》编者", "u"],
     ["《", "", "", "", ""],
     ["二十四孝", "èr shí sì xiào", "The Twenty-Four Filial Exemplars", "Dua Puluh Empat Teladan Bakti", "中国古代宣扬孝道的蒙学名著"],
     ["·", "", "", "", ""],
