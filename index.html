@@ -356,7 +356,7 @@
         }
 
         /* ==========================================================================
-           📄 左侧课文卡片 & 段落联动呼吸高亮
+           📄 左侧课文卡片 & 马来西亚文言专名号（人名/地名/朝代下划线）
            ========================================================================== */
         .article-card {
             width: 100%;
@@ -391,6 +391,14 @@
             letter-spacing: 1.6px;
             border-radius: 8px;
             transition: background-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        /* 📏 马来西亚华文标准：文言专名号（精准锁定在汉字底部，绝不干扰顶部拼音） */
+        .proper-noun {
+            text-decoration: underline;
+            text-decoration-thickness: 1.5px;
+            text-underline-offset: 4px;
+            text-decoration-color: currentColor;
         }
 
         /* 📍 点击题目“第X段”时的左侧课文水墨呼吸高亮动画 */
@@ -462,6 +470,7 @@
             color: var(--ruby-color);
             font-weight: 700;
             padding-bottom: 6px;
+            text-decoration: none !important;
         }
         #content ruby:hover rt, #content ruby.is-active rt { opacity: 1; }
         #content[data-pinyin-mode="show"] rt { opacity: 1 !important; }
@@ -562,7 +571,7 @@
         }
 
         /* ==========================================================================
-           💬 词典气泡弹窗（新增独立『译』标签行，支持三语对照与上下双向翻转）
+           💬 词典气泡弹窗（含独立『译』标签行，支持三语对照与上下双向翻转）
            ========================================================================== */
         .buddy-popover {
             display: none;
@@ -599,7 +608,6 @@
             box-sizing: border-box;
             margin-top: 1px;
         }
-        /* 『译』标签：醒目深黛蓝（文言/古诗白话今译专用） */
         .pop-zh {
             color: var(--text-color);
             font-weight: 700;
@@ -608,7 +616,6 @@
             border-bottom: 1px dashed var(--input-border);
         }
         .pop-zh .pop-tag { background: var(--primary-color); }
-        /* 『EN』与『BM』标签：层次分明 */
         .pop-en { color: var(--primary-color); }
         .pop-en .pop-tag { background: var(--ai-color); opacity: 0.88; }
         .pop-bm { color: var(--text-muted); }
@@ -942,7 +949,7 @@
         </div>
     </div>
 
-    <!-- 词典气泡弹窗（含独立『译』标签行，若现代文无白话译文则自动隐藏该行） -->
+    <!-- 词典气泡弹窗（含独立『译』标签行） -->
     <div id="buddyPopover" class="buddy-popover">
         <div class="pop-title-row">
             <span id="popWord" class="pop-title">词</span>
@@ -971,9 +978,6 @@
 
     <!-- ⚙️ 阅读器核心逻辑控制大脑 -->
     <script>
-        /* ==========================================================================
-           🔐 基于 lessonTitle 的多课存储自动隔离机制（防串台且兼容旧数据）
-           ========================================================================== */
         const LESSON_NAMESPACE = (typeof lessonTitle !== 'undefined' && lessonTitle.trim() !== '')
             ? lessonTitle.trim().replace(/\s+/g, '_')
             : 'default_lesson';
@@ -988,31 +992,30 @@
         let isTeacherMode = false;
         let isFocusMode = false;
         let isNbCollapsed = false;
-        let currentQuizTab = 'mc'; // 'mc' | 'essay' | 'all'
+        let currentQuizTab = 'mc';
         let pinyinMode = 'hover';
         let isQuizSubmitted = false;
         let userSelectedAnswers = {};
         let currentFontSize = parseFloat(localStorage.getItem('reader_pref_font_size')) || 19.5;
 
-        /* ==========================================================================
-           🧠 智能词条解析器：同时兼容 4元素数组、5元素数组（第5项为白话）及内嵌【白话：…】格式
-           ========================================================================== */
+        /* 🧠 智能词条解析器（支持专名号下划线标记第6项 "u" 或内嵌 <u> 标签） */
         function extractWordMeanings(item) {
-            if (!item) return { word: '', pinyin: '', zh: '', en: '', bm: '' };
-            const word = item[0] || '';
+            if (!item) return { word: '', pinyin: '', zh: '', en: '', bm: '', isProperNoun: false };
+            const rawWord = item[0] || '';
+            const word = rawWord.replace(/<\/?u>/g, '');
             const pinyin = item[1] || '';
             let rawEn = (item[2] || '').trim();
             const bm = (item[3] || '').trim();
             let zh = (item[4] || '').trim();
+            const isProperNoun = (item[5] === 'u' || item[5] === true || /<u>.*<\/u>/.test(rawWord));
 
-            // 兼容旧版将【白话：…】写在 item[2] 开头的格式，自动剥离到独立 zh 字段
             const bracketMatch = rawEn.match(/^【(?:白话|译|今译)[：:]\s*([^】]+)】\s*(.*)$/);
             if (bracketMatch) {
                 if (!zh) zh = bracketMatch[1].trim();
                 rawEn = bracketMatch[2].trim();
             }
 
-            return { word, pinyin, zh, en: rawEn, bm };
+            return { word, pinyin, zh, en: rawEn, bm, isProperNoun };
         }
 
         function formatQuizMeaningString(item) {
@@ -1082,7 +1085,6 @@
             window.addEventListener('resize', hidePopover, { passive: true });
         };
 
-        /* 🔠 正文字号与拼音无级同步缩放 */
         function applyFontSize(size) {
             currentFontSize = Math.min(28, Math.max(16, size));
             const rubySize = Math.round(currentFontSize * 0.64 * 10) / 10;
@@ -1096,7 +1098,6 @@
             applyFontSize(currentFontSize + delta);
         }
 
-        /* 📍 题干与解析中的“第 X 段”自动转化为双向联动定位微标 */
         function parseChineseNumber(str) {
             if (/^\d+$/.test(str)) return parseInt(str, 10);
             const map = { '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9, '十': 10 };
@@ -1127,7 +1128,6 @@
             targetP.classList.add('p-highlight-flash');
         }
 
-        /* 🗂️ 实时作答进度更新 + 选完自动平滑滚向下一题 + 漏题自动定位 */
         function updateQuizTabCounts() {
             const mcTotal = (typeof quizDataList !== 'undefined') ? quizDataList.length : 0;
             const mcAnswered = Object.keys(userSelectedAnswers).length;
@@ -1207,7 +1207,6 @@
             btn.innerText = isNbCollapsed ? "展开 ▼" : "收起 ▲";
         }
 
-        /* 📋 通用剪贴板复制工具 */
         function copyTextToClipboard(text, btnElement, successLabel) {
             const originalText = btnElement ? btnElement.innerText : "";
             const showSuccess = () => {
@@ -1241,7 +1240,6 @@
             document.body.removeChild(ta);
         }
 
-        /* 🔤 拼音三态切换逻辑 */
         function togglePinyinMode() {
             const cnt = document.getElementById('content');
             const btn = document.getElementById('pinyinToggleBtn');
@@ -1263,7 +1261,6 @@
             }
         }
 
-        /* 📤 生词本一键导出逻辑（支持输出独立『译』白话行） */
         function exportNotebook(btnElement) {
             if (saved.length === 0) {
                 alert("📖 生词本目前是空的哦！请先在正文中点击词语并点击 Copy 收集生词。");
@@ -1284,7 +1281,6 @@
             copyTextToClipboard(lines.join("\n"), btnElement, "✓ 词表已复制");
         }
 
-        /* 📋 一键生成作答报告逻辑 */
         function generateStudyReport(btnElement) {
             const title = (typeof lessonTitle !== 'undefined') ? lessonTitle : document.getElementById('articleTitle').innerText;
             const nowStr = new Date().toLocaleString('zh-CN', { hour12: false });
@@ -1443,6 +1439,7 @@
                     if (d[0] === "\n") { finalizeParagraph(p); p = document.createElement("p"); }
                     else if (d[1] === "") { let s = document.createElement("span"); s.innerText = d[0]; p.appendChild(s); }
                     else {
+                        const m = extractWordMeanings(d);
                         let r = document.createElement("ruby"); 
                         r.setAttribute("data-word-index", i);
                         r.onclick = (e) => { 
@@ -1451,7 +1448,8 @@
                             r.classList.add('is-active'); 
                             openPop(e.currentTarget, i);
                         };
-                        r.innerHTML = `${d[0]}<rt>${d[1]}</rt>`; 
+                        const wordHtml = m.isProperNoun ? `<span class="proper-noun">${m.word}</span>` : m.word;
+                        r.innerHTML = `${wordHtml}<rt>${m.pinyin}</rt>`; 
                         p.appendChild(r);
                     }
                 });
@@ -1765,11 +1763,13 @@
             document.getElementById('showCorrectBtn').style.display = "none";
         }
 
-        /* 💬 词典气泡智能渲染（自动判断并展示独立『译』标签行） */
         function openPop(el, i) {
             currentIdx = i;
             const m = extractWordMeanings(lessonData[i]);
-            document.getElementById('popWord').innerText = m.word;
+            const wordEl = document.getElementById('popWord');
+            wordEl.innerText = m.word;
+            wordEl.classList.toggle('proper-noun', m.isProperNoun);
+
             document.getElementById('popPinyin').innerText = `[${m.pinyin}]`;
 
             const zhBox = document.getElementById('popZhBox');
@@ -1831,6 +1831,7 @@
                 saved.forEach(idx => { 
                     const item = lessonData[idx]; 
                     if(!item) return; 
+                    const m = extractWordMeanings(item);
                     
                     const div = document.createElement("div"); 
                     div.className = "notebook-item"; 
@@ -1840,7 +1841,8 @@
                     div.style.cursor = "pointer";
 
                     const textSpan = document.createElement("span");
-                    textSpan.innerText = item[0];
+                    textSpan.innerText = m.word;
+                    if (m.isProperNoun) textSpan.className = "proper-noun";
                     textSpan.onclick = (e) => { 
                         e.stopPropagation(); 
                         const target = document.querySelector(`ruby[data-word-index="${idx}"]`); 
@@ -1922,9 +1924,12 @@
             isLocked = false; 
             const targetIdx = quizData[currentQuizIdx]; 
             const data = lessonData[targetIdx]; 
+            const m = extractWordMeanings(data);
             document.getElementById('quizProgress').innerText = `第 ${currentQuizIdx + 1} / ${quizData.length} 题`; 
-            document.getElementById('quizQuestion').innerText = data[0]; 
-            document.getElementById('quizPinyin').innerText = `[${data[1]}]`; 
+            const qEl = document.getElementById('quizQuestion');
+            qEl.innerText = m.word; 
+            qEl.classList.toggle('proper-noun', m.isProperNoun);
+            document.getElementById('quizPinyin').innerText = `[${m.pinyin}]`; 
             
             const correctStr = formatQuizMeaningString(data); 
             let options = [correctStr]; 
