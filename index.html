@@ -571,7 +571,7 @@
         }
 
         /* ==========================================================================
-           💬 词典气泡弹窗（含独立『译』标签行，支持三语对照与上下双向翻转）
+           💬 词典气泡弹窗（含独立『译』标签行 & 『古义/今义』上下双行对齐）
            ========================================================================== */
         .buddy-popover {
             display: none;
@@ -582,7 +582,7 @@
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-md);
             padding: 20px;
-            width: 300px;
+            width: 315px;
             box-sizing: border-box;
             border: 1.5px solid var(--primary-color);
             animation: popIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
@@ -606,16 +606,55 @@
             min-width: 28px;
             text-align: center;
             box-sizing: border-box;
-            margin-top: 1px;
+            margin-top: 2px;
         }
         .pop-zh {
             color: var(--text-color);
             font-weight: 700;
-            padding-bottom: 8px;
+            padding-bottom: 10px;
             margin-bottom: 10px;
             border-bottom: 1px dashed var(--input-border);
         }
         .pop-zh .pop-tag { background: var(--primary-color); }
+
+        /* 🏛️ 古义与今义上下分行的微标签样式 */
+        .zh-lines-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+        }
+        .zh-line-item {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            line-height: 1.5;
+        }
+        .zh-sub-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 0 5px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            line-height: 1.45;
+        }
+        .zh-sub-badge.ancient {
+            background: var(--accent-bg);
+            color: var(--primary-color);
+            border: 1px solid rgba(43, 76, 101, 0.28);
+        }
+        .zh-sub-badge.modern {
+            background: rgba(104, 99, 89, 0.1);
+            color: var(--text-muted);
+            border: 1px dashed var(--input-border);
+        }
+        .zh-line-item.modern-row {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 13px;
+        }
+
         .pop-en { color: var(--primary-color); }
         .pop-en .pop-tag { background: var(--ai-color); opacity: 0.88; }
         .pop-bm { color: var(--text-muted); }
@@ -949,7 +988,7 @@
         </div>
     </div>
 
-    <!-- 词典气泡弹窗（含独立『译』标签行） -->
+    <!-- 词典气泡弹窗（含独立『译』标签行 & 古今异义自动上下分行） -->
     <div id="buddyPopover" class="buddy-popover">
         <div class="pop-title-row">
             <span id="popWord" class="pop-title">词</span>
@@ -957,7 +996,7 @@
         </div>
         <div id="popZhBox" class="pop-box pop-zh" style="display: none;">
             <span class="pop-tag">译</span>
-            <span id="popZh"></span>
+            <div id="popZh" class="zh-lines-wrap"></div>
         </div>
         <div class="pop-box pop-en">
             <span class="pop-tag">EN</span>
@@ -998,9 +1037,9 @@
         let userSelectedAnswers = {};
         let currentFontSize = parseFloat(localStorage.getItem('reader_pref_font_size')) || 19.5;
 
-        /* 🧠 智能词条解析器（支持专名号下划线标记第6项 "u" 或内嵌 <u> 标签） */
+        /* 🧠 智能词条解析器 */
         function extractWordMeanings(item) {
-            if (!item) return { word: '', pinyin: '', zh: '', en: '', bm: '', isProperNoun: false };
+            if (!item) return { word: '', pinyin: '', zh: '', zhPlain: '', en: '', bm: '', isProperNoun: false };
             const rawWord = item[0] || '';
             const word = rawWord.replace(/<\/?u>/g, '');
             const pinyin = item[1] || '';
@@ -1015,13 +1054,40 @@
                 rawEn = bracketMatch[2].trim();
             }
 
-            return { word, pinyin, zh, en: rawEn, bm, isProperNoun };
+            // 单行纯文本版本（供导出词表与生词测试题按钮使用）
+            const zhPlain = zh.replace(/<br\s*\/?>/gi, ' ｜ ').replace(/\n+/g, ' ｜ ');
+
+            return { word, pinyin, zh, zhPlain, en: rawEn, bm, isProperNoun };
+        }
+
+        /* 🏛️ 将『译』文本渲染为上下双行 HTML（自动识别“古义/今义”或换行符 \n） */
+        function formatZhPopoverHtml(zhText) {
+            if (!zhText) return '';
+            let normalized = zhText.replace(/<br\s*\/?>/gi, '\n');
+
+            // 若写在同一行如“古义：婆婆（今义：姑妈）”，自动将括号内的今义拆到下一行
+            if (!normalized.includes('\n')) {
+                normalized = normalized.replace(/\s*[（(]\s*(今(?:义|常作)[：:][^）)]+)[）)]/g, '\n$1');
+            }
+
+            const lines = normalized.split('\n').map(s => s.trim()).filter(Boolean);
+            return lines.map(line => {
+                const ancientMatch = line.match(/^(古义|本义)[：:]\s*(.*)$/);
+                if (ancientMatch) {
+                    return `<div class="zh-line-item"><span class="zh-sub-badge ancient">${ancientMatch[1]}</span><span>${ancientMatch[2]}</span></div>`;
+                }
+                const modernMatch = line.match(/^(今义|今常作)[：:]\s*(.*)$/);
+                if (modernMatch) {
+                    return `<div class="zh-line-item modern-row"><span class="zh-sub-badge modern">${modernMatch[1]}</span><span>${modernMatch[2]}</span></div>`;
+                }
+                return `<div class="zh-line-item"><span>${line}</span></div>`;
+            }).join('');
         }
 
         function formatQuizMeaningString(item) {
             const m = extractWordMeanings(item);
-            if (m.zh) {
-                return `【译】${m.zh} ｜ ${m.en}；${m.bm}`;
+            if (m.zhPlain) {
+                return `【译】${m.zhPlain} ｜ ${m.en}；${m.bm}`;
             }
             return `${m.en}；${m.bm}`;
         }
@@ -1273,7 +1339,7 @@
                 if (item) {
                     const m = extractWordMeanings(item);
                     lines.push(`${i + 1}. 【${m.word}】 [${m.pinyin}]`);
-                    if (m.zh) lines.push(`   • 译: ${m.zh}`);
+                    if (m.zhPlain) lines.push(`   • 译: ${m.zhPlain}`);
                     lines.push(`   • EN: ${m.en}`);
                     lines.push(`   • BM: ${m.bm}`);
                 }
@@ -1303,10 +1369,10 @@
                         const isRight = (letter === q.answer);
                         if (isRight) correctCount++;
                         const statusTag = isQuizSubmitted ? (isRight ? "✅ 正确" : `❌ 待订正`) : "已作答";
-                        report.push(`${q.id}. ${q.question.replace(/\n/g, ' ')}`);
+                        report.push(`${q.id}. ${q.question.replace(/<[^>]+>/g, '').replace(/\n/g, ' ')}`);
                         report.push(`   👉 我的选择：${chosen} 【${statusTag}】`);
                     } else {
-                        report.push(`${q.id}. ${q.question.replace(/\n/g, ' ')}`);
+                        report.push(`${q.id}. ${q.question.replace(/<[^>]+>/g, '').replace(/\n/g, ' ')}`);
                         report.push(`   👉 我的选择：（未作答）`);
                     }
                 });
@@ -1323,7 +1389,7 @@
             if (typeof essayDataList !== 'undefined' && essayDataList.length > 0) {
                 essayDataList.forEach(essay => {
                     const draft = (localStorage.getItem(getEssayStorageKey(essay.id)) || localStorage.getItem(`essay_draft_${essay.id}`) || "").trim();
-                    report.push(`${essay.question}`);
+                    report.push(`${essay.question.replace(/<[^>]+>/g, '')}`);
                     report.push(`   ✍️ 我的作答：${draft ? draft : "（未填写）"}\n`);
                 });
             } else {
@@ -1335,7 +1401,7 @@
                 const words = saved.map(idx => {
                     if (!lessonData[idx]) return "";
                     const m = extractWordMeanings(lessonData[idx]);
-                    return m.zh ? `${m.word} [${m.pinyin}]（${m.zh}）` : `${m.word} [${m.pinyin}]`;
+                    return m.zhPlain ? `${m.word} [${m.pinyin}]（${m.zhPlain}）` : `${m.word} [${m.pinyin}]`;
                 }).filter(Boolean);
                 report.push(words.join(" ｜ "));
             } else {
@@ -1774,7 +1840,7 @@
 
             const zhBox = document.getElementById('popZhBox');
             if (m.zh) {
-                document.getElementById('popZh').innerText = m.zh;
+                document.getElementById('popZh').innerHTML = formatZhPopoverHtml(m.zh);
                 zhBox.style.display = 'flex';
             } else {
                 zhBox.style.display = 'none';
