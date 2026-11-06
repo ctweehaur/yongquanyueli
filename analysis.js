@@ -1,11 +1,11 @@
 // ==========================================================================
-// 📖 《涌泉跃鲤》深度文本赏析数据库 (analysis.js) - 古今异义上下双行对比版
+// 📖 《涌泉跃鲤》深度文本赏析数据库 (analysis.js) - 马来西亚本地教材标准终极版
 // ==========================================================================
 
 const U_TAG = (text) => `<span class="proper-noun">${text}</span>`;
 
 const OMISSION_TAG = (role, text) => 
-    `<span style="display:inline-block; background:var(--wrong-bg); color:var(--wrong-text); border:1px dashed var(--wrong-border); padding:0 6px; margin:0 2px; border-radius:4px; font-size:12.5px; font-weight:800;" title="文言省略句采分点：原文省略了${role}，考场翻译时必须补出">＋${role}：${text}</span>`;
+    `<span style="display:inline-block; background:var(--wrong-bg); color:var(--wrong-text); border:1px dashed var(--wrong-border); padding:0 6px; margin:0 2px; border-radius:4px; font-size:12.5px; font-weight:800;" title="文言省略句补全成分">＋${role}：${text}</span>`;
 
 const GRAMMAR_TAG = (type, text) => 
     `<span style="display:inline-block; background:var(--notebook-bg); color:var(--primary-color); border:1px solid rgba(43,76,101,0.22); padding:2px 8px; margin:2px 4px 2px 0; border-radius:5px; font-size:12px; font-weight:800; vertical-align:top;">${type}：${text}</span>`;
@@ -36,13 +36,13 @@ const lessonTeacherAnalysis = {
         OMISSION_TAG("宾语", "泉水与双鲤") + "来供养" +
         OMISSION_TAG("宾语", "母亲") + "。" +
         "</span><br><br>" +
-        "<strong>【作品出处与主旨】</strong><br>" +
-        "<span style='font-weight:500; display:inline-block; margin-top:4px;'>《涌泉跃鲤》选自" + U_TAG("元代") + U_TAG("郭居敬") + "编录的《二十四孝》（故事原型出自《后汉书·列女传》）。全文仅61字，密集运用了文言文典型的<strong>“承前省略（省主语、省宾语）”</strong>手法，颂扬了夫妻同心、孝亲睦邻的传统美德。</span>",
+        "<strong>【古代文化常识与阅读提示】</strong><br>" +
+        "<span style='font-weight:500; display:inline-block; margin-top:4px;'>《二十四孝》由" + U_TAG("元代") + "学者" + U_TAG("郭居敬") + "编录，辑录了古代二十四个孝顺父母的感人故事（《涌泉跃鲤》原型出自《后汉书·列女传》）。古人常用“鱼脍（kuài）”招待贵客或奉养尊长，即把新鲜鱼肉切成细丝。本文借“泉涌江水、日跃双鲤”的祥瑞之象，说明做儿女的应当同心孝敬长辈、体察父母心意。</span>",
 
     paragraphs: {
-        1: "<strong>【逐句白话直译与考场采分点对照（上文下译）】</strong>" +
+        1: "<strong>【逐句白话直译与 UASA 考场采分点对照（上文下译）】</strong>" +
            "<div style='font-size:12.5px; color:var(--wrong-text); background:var(--wrong-bg); border:1px dashed var(--wrong-border); padding:6px 12px; border-radius:6px; margin-top:8px; font-weight:600;'>" +
-               "💡 <strong>考场翻译图例：</strong>原文 <strong>‸</strong> 为省略位；译文中 <span style='border:1px dashed var(--wrong-border); padding:0 4px; border-radius:3px;'>＋主语/宾语</span> 为必补省略成分；下方双行卡片直观对比 <strong>古义 vs 今义</strong>。" +
+               "💡 <strong>翻译五字法提示（留、补、删、换、调）：</strong>专名下划线词保留不译（<strong>留</strong>）；原文 <strong>‸</strong> 处须补出省略成分（<strong>补</strong>）；下方卡片直观对比 <strong>古义 vs 今义</strong>（<strong>换</strong>）。" +
            "</div>" +
            "<div style='margin-top:10px; display:flex; flex-direction:column; gap:12px;'>" +
 
@@ -50,11 +50,11 @@ const lessonTeacherAnalysis = {
                "<div style='padding:12px 15px; background:var(--card-bg); border:1px solid var(--input-border); border-radius:8px; line-height:1.8;'>" +
                    "<div style='color:var(--text-color); font-weight:800;'>" +
                        "<span style='display:inline-block; background:var(--primary-color); color:#fff; font-size:11px; padding:1px 6px; border-radius:4px; margin-right:8px;'>原</span>" +
-                       U_TAG("汉") + U_TAG("姜诗") + "，事母至孝。" + CARET + "妻" + U_TAG("庞氏") + "，奉姑尤谨。" +
+                       U_TAG("汉") + U_TAG("姜诗") + "，[事]母[至]孝。" + CARET + "妻" + U_TAG("庞氏") + "，[奉][姑][尤][谨]。" +
                    "</div>" +
                    "<div style='color:var(--primary-color); font-weight:500; margin-top:6px;'>" +
                        "<span style='display:inline-block; background:var(--notebook-bg); color:var(--primary-color); border:1px solid rgba(43,76,101,0.25); font-size:11px; font-weight:800; padding:0 6px; border-radius:4px; margin-right:8px;'>译</span>" +
-                       U_TAG("东汉") + "人" + U_TAG("姜诗") + "，侍奉母亲最为孝顺。" + OMISSION_TAG("定语", "他的") + "妻子" + U_TAG("庞氏") + "，侍奉婆婆更加恭敬谨慎。" +
+                       U_TAG("东汉") + "人" + U_TAG("姜诗") + "，[侍奉]✓母亲[最为]✓孝顺。" + OMISSION_TAG("定语", "他的") + "妻子" + U_TAG("庞氏") + "，[侍奉]✓[婆婆]✓[更加]✓[恭敬谨慎]✓。" +
                    "</div>" +
                    "<div style='margin-top:8px; padding-top:6px; border-top:1px dashed var(--input-border);'>" +
                        ANCIENT_MODERN_TAG("姑", "婆婆（丈夫的母亲）", "姑妈（父亲的姐妹）") +
@@ -67,11 +67,11 @@ const lessonTeacherAnalysis = {
                "<div style='padding:12px 15px; background:var(--card-bg); border:1px solid var(--input-border); border-radius:8px; line-height:1.8;'>" +
                    "<div style='color:var(--text-color); font-weight:800;'>" +
                        "<span style='display:inline-block; background:var(--primary-color); color:#fff; font-size:11px; padding:1px 6px; border-radius:4px; margin-right:8px;'>原</span>" +
-                       "母性好饮江水，" + CARET + "去舍六七里，妻出汲" + CARET + "以奉之。" +
+                       "母[性][好]饮江水，" + CARET + "[去][舍]六七里，妻出[汲]以[奉][之]。" +
                    "</div>" +
                    "<div style='color:var(--primary-color); font-weight:500; margin-top:6px;'>" +
                        "<span style='display:inline-block; background:var(--notebook-bg); color:var(--primary-color); border:1px solid rgba(43,76,101,0.25); font-size:11px; font-weight:800; padding:0 6px; border-radius:4px; margin-right:8px;'>译</span>" +
-                       "母亲天性喜爱喝江水，" + OMISSION_TAG("主语", "江边") + "距离家中房屋有六七里路，妻子" + U_TAG("庞氏") + "便出门去打" + OMISSION_TAG("宾语", "江水") + "回来奉养她（婆婆）。" +
+                       "母亲[天性]✓[喜爱]✓喝江水，" + OMISSION_TAG("主语", "江边") + "[距离]✓[家中房屋]✓有六七里路，妻子" + U_TAG("庞氏") + "便出门去[打]✓" + OMISSION_TAG("宾语", "江水") + "回来[奉养]✓[她（婆婆）]✓。" +
                    "</div>" +
                    "<div style='margin-top:8px; padding-top:6px; border-top:1px dashed var(--input-border);'>" +
                        ANCIENT_MODERN_TAG("去", "距离、相距", "前往、到某处去") +
@@ -85,11 +85,11 @@ const lessonTeacherAnalysis = {
                "<div style='padding:12px 15px; background:var(--card-bg); border:1px solid var(--input-border); border-radius:8px; line-height:1.8;'>" +
                    "<div style='color:var(--text-color); font-weight:800;'>" +
                        "<span style='display:inline-block; background:var(--primary-color); color:#fff; font-size:11px; padding:1px 6px; border-radius:4px; margin-right:8px;'>原</span>" +
-                       CARET + "又嗜鱼脍，夫妇常作" + CARET + "。" + CARET + "又不能独食，" + CARET + "召邻母共食。" +
+                       CARET + "又[嗜][鱼脍]，夫妇[常][作]" + CARET + "。" + CARET + "又[不能][独食]，" + CARET + "[召]邻母[共食]。" +
                    "</div>" +
                    "<div style='color:var(--primary-color); font-weight:500; margin-top:6px;'>" +
                        "<span style='display:inline-block; background:var(--notebook-bg); color:var(--primary-color); border:1px solid rgba(43,76,101,0.25); font-size:11px; font-weight:800; padding:0 6px; border-radius:4px; margin-right:8px;'>译</span>" +
-                       OMISSION_TAG("主语", "母亲") + "又酷爱吃切细的鱼肉，夫妻俩便经常烹制" + OMISSION_TAG("宾语", "鱼脍") + "。" + OMISSION_TAG("主语", "母亲") + "又不习惯独自用餐，" + OMISSION_TAG("主语", "夫妻俩") + "就邀请邻家的老母亲一起来陪她吃。" +
+                       OMISSION_TAG("主语", "母亲") + "又[酷爱]✓吃[切细的鱼肉]✓，夫妻俩便[经常]✓[烹制]✓" + OMISSION_TAG("宾语", "鱼脍") + "。" + OMISSION_TAG("主语", "母亲") + "又[不习惯]✓[独自用餐]✓，" + OMISSION_TAG("主语", "夫妻俩") + "就[邀请]✓邻家的老母亲[一起用餐]✓。" +
                    "</div>" +
                    "<div style='margin-top:8px; padding-top:6px; border-top:1px dashed var(--input-border);'>" +
                        ANCIENT_MODERN_TAG("不能", "不习惯、不忍心", "没有能力做到") +
@@ -102,11 +102,11 @@ const lessonTeacherAnalysis = {
                "<div style='padding:12px 15px; background:var(--card-bg); border:1px solid var(--input-border); border-radius:8px; line-height:1.8;'>" +
                    "<div style='color:var(--text-color); font-weight:800;'>" +
                        "<span style='display:inline-block; background:var(--primary-color); color:#fff; font-size:11px; padding:1px 6px; border-radius:4px; margin-right:8px;'>原</span>" +
-                       "舍侧忽有涌泉，" + CARET + "味如江水，" + CARET + "日跃双鲤，" + CARET + "取" + CARET + "以供" + CARET + "。" +
+                       "[舍侧][忽]有涌泉，" + CARET + "味[如]江水，" + CARET + "[日][跃]双鲤，" + CARET + "[取]" + CARET + "以[供]" + CARET + "。" +
                    "</div>" +
                    "<div style='color:var(--primary-color); font-weight:500; margin-top:6px;'>" +
                        "<span style='display:inline-block; background:var(--notebook-bg); color:var(--primary-color); border:1px solid rgba(43,76,101,0.25); font-size:11px; font-weight:800; padding:0 6px; border-radius:4px; margin-right:8px;'>译</span>" +
-                       "房屋旁边忽然冒出一眼涌泉，" + OMISSION_TAG("主语", "泉水") + "味道如同江水一般，" + OMISSION_TAG("状语", "泉中") + "每天还会跳出两条鲤鱼，" + OMISSION_TAG("主语", "夫妻俩") + "便取来" + OMISSION_TAG("宾语", "泉水与双鲤") + "用以供养" + OMISSION_TAG("宾语", "母亲") + "。" +
+                       "[房屋旁边]✓[忽然]✓冒出一眼涌泉，" + OMISSION_TAG("主语", "泉水") + "味道[如同]✓江水一般，" + OMISSION_TAG("状语", "泉中") + "[每天]✓还会[跳出]✓两条鲤鱼，" + OMISSION_TAG("主语", "夫妻俩") + "便[取来]✓" + OMISSION_TAG("宾语", "泉水与双鲤") + "用以[供养]✓" + OMISSION_TAG("宾语", "母亲") + "。" +
                    "</div>" +
                    "<div style='margin-top:8px; padding-top:6px; border-top:1px dashed var(--input-border);'>" +
                        ANCIENT_MODERN_TAG("日", "每天、每日（名词作状语）", "太阳、日子（普通名词）") +
@@ -115,6 +115,6 @@ const lessonTeacherAnalysis = {
                "</div>" +
 
            "</div>" +
-           "<div style='margin-top:16px;'><strong>【文言手法与考点精析】</strong><br><span style='font-weight:500;'>• <strong>开篇立骨，夫妻同心：</strong>“事母至孝”与“奉姑尤谨”对仗工整，“至（极）”与“尤（更加）”二字递进，仅用14字便立起夫妻同心行孝的形象。<br>• <strong>三桩孝行，由身及心：</strong>从不辞劳苦远途打水（劳力之孝）、常作鱼脍（劳心之孝），到体察母亲怕孤单而“召邻母共食”（养志之孝），将孝道从物质奉养升华至精神体贴。<br>• <strong>奇景收束，丝丝入扣：</strong>结尾“味如江水”精准照应前文“好饮江水、去舍六七里”；“日跃双鲤”巧妙照应“嗜鱼脍”与两位老人共食（一人一条），言简义丰，滴水不漏。</span></div>"
+           "<div style='margin-top:16px;'><strong>【文言解题脉络梳理（何人·何事·结果）】</strong><br><span style='font-weight:500;'>• <strong>人物：</strong>" + U_TAG("姜诗") + "、妻子" + U_TAG("庞氏") + "、母亲、邻母。<br>• <strong>核心事件：</strong>① 母亲爱喝江水，庞氏每日远行六七里打水奉养；② 母亲爱吃鱼脍且不喜独食，夫妇常做鱼脍并请邻母伴食。<br>• <strong>结果与主旨：</strong>至孝感动天地，屋旁涌出味如江水的清泉并日跃双鲤，褒扬了夫妻同心行孝的美德。</span></div>"
     }
 };
