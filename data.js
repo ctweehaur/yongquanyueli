@@ -1,6 +1,6 @@
 // ==========================================================================
-// 📚 《涌泉跃鲤》课文词典与分段数据集 (data.js) - 含古义/今义对比终极版
-// 格式：["字词", "拼音", "EN 英文", "BM 马来文", "译 中文白话(含古今异义对比)", "u (可选:专名下划线)"]
+// 📚 《涌泉跃鲤》课文词典与分段数据集 (data.js) - 古义/今义上下双行对齐版
+// 格式：["字词", "拼音", "EN 英文", "BM 马来文", "古义：...\n今义：...", "u (可选:专名下划线)"]
 // ==========================================================================
 
 const lessonTitle = "涌泉跃鲤";
@@ -10,27 +10,27 @@ const lessonData = [
     ["汉", "hàn", "Han Dynasty", "Dinasti Han", "汉朝（此处指东汉）", "u"],
     ["姜诗", "jiāng shī", "Jiang Shi (person's name)", "Jiang Shi (nama orang)", "人名，东汉广汉人", "u"],
     ["，", "", "", "", ""],
-    ["事", "shì", "serve / wait upon", "melayani / berbakti kepada", "动词：侍奉、奉养（今常作名词“事情”）"],
+    ["事", "shì", "serve / wait upon", "melayani / berbakti kepada", "古义：侍奉、奉养（动词）\n今义：事情、职业（名词）"],
     ["母", "mǔ", "mother", "ibu", "母亲"],
-    ["至", "zhì", "extremely / most", "sangat / amat", "副词：极、最（今常作“到、至于”）"],
+    ["至", "zhì", "extremely / most", "sangat / amat", "古义：极、最（副词）\n今义：到、至于"],
     ["孝", "xiào", "filial", "taat dan berbakti", "孝顺"],
     ["。", "", "", "", ""],
     ["妻", "qī", "wife", "isteri", "妻子"],
     ["庞氏", "páng shì", "Madam Pang", "Puan Pang", "庞氏（姜诗的妻子）", "u"],
     ["，", "", "", "", ""],
     ["奉", "fèng", "wait upon respectfully", "melayani dengan hormat", "动词：侍奉、伺候"],
-    ["姑", "gū", "husband's mother (mother-in-law)", "ibu mertua", "古义：婆婆，丈夫的母亲（今义：姑妈、父亲的姐妹）"],
+    ["姑", "gū", "husband's mother (mother-in-law)", "ibu mertua", "古义：婆婆，丈夫的母亲\n今义：姑妈，父亲的姐妹"],
     ["尤", "yóu", "especially / even more", "lebih-lebih lagi / terutamanya", "副词：尤其、更加"],
     ["谨", "jǐn", "attentive and respectful", "teliti dan penuh hormat", "恭敬谨慎、细致周到"],
     ["。", "", "", "", ""],
     ["母", "mǔ", "the mother", "ibunya", "母亲"],
     ["性", "xìng", "by nature / disposition", "tabiat / sifat semula jadi", "生性、天性"],
-    ["好", "hào", "be fond of / like to", "gemar / suka", "动词（破音读 hào）：喜爱、喜好"],
+    ["好", "hào", "be fond of / like to", "gemar / suka", "古义：喜爱、喜好（破音读 hào）\n今义：美好、优良（读 hǎo）"],
     ["饮", "yǐn", "drink", "minum", "喝、饮用"],
     ["江水", "jiāng shuǐ", "river water", "air sungai", "江河里的水"],
     ["，", "", "", "", ""],
-    ["去", "qù", "distance from / away from", "jaraknya dari", "古义：距离、相距（今义：前往、到某处去）"],
-    ["舍", "shè", "house / dwelling", "rumah / tempat tinggal", "名词（读 shè）：房屋、住家"],
+    ["去", "qù", "distance from / away from", "jaraknya dari", "古义：距离、相距\n今义：前往、到某处去"],
+    ["舍", "shè", "house / dwelling", "rumah / tempat tinggal", "古义：房屋、住家（读 shè）\n今义：舍弃、放弃（读 shě）"],
     ["六七里", "liù qī lǐ", "six or seven li (Chinese miles)", "enam atau tujuh li (batu Cina)", "六七里路远"],
     ["，", "", "", "", ""],
     ["妻", "qī", "the wife (Madam Pang)", "isterinya", "妻子（庞氏）"],
@@ -49,7 +49,7 @@ const lessonData = [
     ["作", "zuò", "prepare / cook", "menyediakan / memasak", "动词：制作、烹调"],
     ["。", "", "", "", ""],
     ["又", "yòu", "also / moreover", "lagipun", "再者、而且"],
-    ["不能", "bù néng", "unable to / did not like to", "tidak sampai hati / tidak biasa", "不习惯、不忍心"],
+    ["不能", "bù néng", "unable to / did not like to", "tidak sampai hati / tidak biasa", "古义：不习惯、不忍心\n今义：没有能力做到"],
     ["独", "dú", "alone / by oneself", "bersendirian", "独自一人"],
     ["食", "shí", "eat", "makan", "动词：吃、进食"],
     ["，", "", "", "", ""],
@@ -67,7 +67,7 @@ const lessonData = [
     ["如", "rú", "just like", "sama seperti", "像、如同"],
     ["江水", "jiāng shuǐ", "river water", "air sungai", "江水"],
     ["，", "", "", "", ""],
-    ["日", "rì", "every day / daily", "setiap hari", "名词作状语：每天、每日（本义：太阳、日子）"],
+    ["日", "rì", "every day / daily", "setiap hari", "古义：每天、每日（名词作状语）\n今义：太阳、白昼（普通名词）"],
     ["跃", "yuè", "leap out / jump out", "melompat keluar", "动词：跃出、跳出"],
     ["双鲤", "shuāng lǐ", "a pair of carp", "sepasang ikan kap", "两条鲤鱼"],
     ["，", "", "", "", ""],
