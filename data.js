@@ -1,6 +1,6 @@
 // ==========================================================================
-// 📚 《涌泉跃鲤》课文词典与分段数据集 (data.js) - 马来西亚文言文黄金范例终极版
-// 格式：["字词", "拼音", "EN 英文", "BM 马来文", "译 中文白话(含词性/古义)", "u (可选:专名下划线)"]
+// 📚 《涌泉跃鲤》课文词典与分段数据集 (data.js) - 含古义/今义对比终极版
+// 格式：["字词", "拼音", "EN 英文", "BM 马来文", "译 中文白话(含古今异义对比)", "u (可选:专名下划线)"]
 // ==========================================================================
 
 const lessonTitle = "涌泉跃鲤";
@@ -10,16 +10,16 @@ const lessonData = [
     ["汉", "hàn", "Han Dynasty", "Dinasti Han", "汉朝（此处指东汉）", "u"],
     ["姜诗", "jiāng shī", "Jiang Shi (person's name)", "Jiang Shi (nama orang)", "人名，东汉广汉人", "u"],
     ["，", "", "", "", ""],
-    ["事", "shì", "serve / wait upon", "melayani / berbakti kepada", "动词：侍奉、奉养"],
+    ["事", "shì", "serve / wait upon", "melayani / berbakti kepada", "动词：侍奉、奉养（今常作名词“事情”）"],
     ["母", "mǔ", "mother", "ibu", "母亲"],
-    ["至", "zhì", "extremely / most", "sangat / amat", "副词：极、最"],
+    ["至", "zhì", "extremely / most", "sangat / amat", "副词：极、最（今常作“到、至于”）"],
     ["孝", "xiào", "filial", "taat dan berbakti", "孝顺"],
     ["。", "", "", "", ""],
     ["妻", "qī", "wife", "isteri", "妻子"],
     ["庞氏", "páng shì", "Madam Pang", "Puan Pang", "庞氏（姜诗的妻子）", "u"],
     ["，", "", "", "", ""],
     ["奉", "fèng", "wait upon respectfully", "melayani dengan hormat", "动词：侍奉、伺候"],
-    ["姑", "gū", "husband's mother (mother-in-law)", "ibu mertua", "古义：婆婆（丈夫的母亲）"],
+    ["姑", "gū", "husband's mother (mother-in-law)", "ibu mertua", "古义：婆婆，丈夫的母亲（今义：姑妈、父亲的姐妹）"],
     ["尤", "yóu", "especially / even more", "lebih-lebih lagi / terutamanya", "副词：尤其、更加"],
     ["谨", "jǐn", "attentive and respectful", "teliti dan penuh hormat", "恭敬谨慎、细致周到"],
     ["。", "", "", "", ""],
@@ -29,7 +29,7 @@ const lessonData = [
     ["饮", "yǐn", "drink", "minum", "喝、饮用"],
     ["江水", "jiāng shuǐ", "river water", "air sungai", "江河里的水"],
     ["，", "", "", "", ""],
-    ["去", "qù", "distance from / away from", "jaraknya dari", "古今异义：距离、相距"],
+    ["去", "qù", "distance from / away from", "jaraknya dari", "古义：距离、相距（今义：前往、到某处去）"],
     ["舍", "shè", "house / dwelling", "rumah / tempat tinggal", "名词（读 shè）：房屋、住家"],
     ["六七里", "liù qī lǐ", "six or seven li (Chinese miles)", "enam atau tujuh li (batu Cina)", "六七里路远"],
     ["，", "", "", "", ""],
@@ -67,7 +67,7 @@ const lessonData = [
     ["如", "rú", "just like", "sama seperti", "像、如同"],
     ["江水", "jiāng shuǐ", "river water", "air sungai", "江水"],
     ["，", "", "", "", ""],
-    ["日", "rì", "every day / daily", "setiap hari", "名词作状语：每天、每日"],
+    ["日", "rì", "every day / daily", "setiap hari", "名词作状语：每天、每日（本义：太阳、日子）"],
     ["跃", "yuè", "leap out / jump out", "melompat keluar", "动词：跃出、跳出"],
     ["双鲤", "shuāng lǐ", "a pair of carp", "sepasang ikan kap", "两条鲤鱼"],
     ["，", "", "", "", ""],
