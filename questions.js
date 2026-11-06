@@ -1,14 +1,13 @@
 // ==========================================================================
-// 📝 《涌泉跃鲤》综合练习题库数据集 (questions.js) - 马来西亚 UASA/SPM 评分标准版
+// 📝 《涌泉跃鲤》综合练习题库数据集 (questions.js) - 画线字醒目下划线修复版
 // ==========================================================================
 
 const U = (text) => `<span class="proper-noun">${text}</span>`;
-// 🔖 本地参考书标准采分点角标（如 [1]、[2]）
 const PT = (pts) => `<span style="display:inline-block; background:var(--primary-color); color:#fff; font-size:11px; font-weight:800; padding:0 5px; margin:0 3px; border-radius:4px;">[${pts}分]</span>`;
-// 🔖 翻译题采分关键字标记（如 [侍奉]✓）
 const KW = (text) => `<span style="background:var(--notebook-bg); color:var(--primary-color); border:1px solid rgba(43,76,101,0.3); padding:0 4px; border-radius:4px; font-weight:800;">[${text}]✓</span>`;
+const HL = (text) => `<u style="text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px; color:var(--primary-color); font-weight:800;">${text}</u>`;
 
-// 一、 10道客观选择题数据集（四个选项字数与句式严格均衡，杜绝盲猜）
+// 一、 10道客观选择题数据集
 const quizDataList = [
     {
         id: 1,
@@ -132,7 +131,7 @@ const quizDataList = [
     }
 ];
 
-// 二、 5道主观简答题数据集（严格按照马来西亚 UASA 丙组古文 15 分评分细则设计）
+// 二、 5道主观简答题数据集
 const essayDataList = [
     {
         id: 1,
@@ -154,7 +153,11 @@ const essayDataList = [
     },
     {
         id: 4,
-        question: `（四）试解释第1段中下列加点字的意思： <span style="color:var(--primary-color);">[2分]</span><br>a. 妻${U("庞氏")}，奉<strong>姑</strong>尤谨（姑）<br>b. <strong>去</strong>舍六七里（去）`,
+        question: `（四）试解释第1段中下列画线字的意思： <span style="color:var(--primary-color);">[2分]</span><br>` +
+                  `<div style="font-weight:500; margin-top:6px; line-height:1.85;">` +
+                  `a. 妻${U("庞氏")}，奉${HL("姑")}尤谨<br>` +
+                  `b. ${HL("去")}舍六七里` +
+                  `</div>`,
         sampleAnswer: `a. <strong>姑</strong>：婆婆（丈夫的母亲）${PT(1)}<br>b. <strong>去</strong>：距离 / 相距${PT(1)}`,
         teacherAnalysis: "<strong>【文言实词释义题】</strong>重点考查古今异义词。切忌把“姑”误答为“姑妈”，把“去”误答为“前往”。"
     },
