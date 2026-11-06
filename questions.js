@@ -131,25 +131,29 @@ const quizDataList = [
     }
 ];
 
-// 二、 5道主观简答题数据集
+// 二、 5道主观简答题数据集（融合《中二华文》课本第29页“理解与探究”原题 & UASA 15分标准）
 const essayDataList = [
     {
         id: 1,
-        question: `（一）${U("姜诗")}的母亲在饮食方面有什么喜好？${U("姜诗")}夫妇如何满足她的心愿？ <span style="color:var(--primary-color);">[4分]</span>`,
-        sampleAnswer: `她生性喜欢喝江水${PT(1)}，虽然江边距离住家有六七里远，妻子${U("庞氏")}仍出门去打江水回来奉养她${PT(1)}。此外，母亲喜欢吃切细的鱼肉（鱼脍）${PT(1)}，${U("姜诗")}夫妇就经常为她烹制，并邀请邻居的老母亲一起来陪她吃${PT(1)}。`,
-        teacherAnalysis: "<strong>【内容归纳题】</strong>原文定位：第1段“母性好饮江水，去舍六七里，妻出汲以奉之。又嗜鱼脍，夫妇常作。又不能独食，召邻母共食。”注意：须用自己的现代白话组织文字回答，不可照抄文言原句。"
+        question: `（一）结合上下文，判断第1段中下列两个文言副词“${HL("又")}”在句中的意思： <span style="color:var(--primary-color);">[2分]</span><br>` +
+                  `<div style="font-weight:500; margin-top:6px; line-height:1.85;">` +
+                  `a. ${HL("又")}嗜鱼脍<br>` +
+                  `b. ${HL("又")}不能独食` +
+                  `</div>`,
+        sampleAnswer: `a. <strong>又</strong>：表示并列或补充关系，意为<strong>“此外、而且（除好饮江水外，还……）”</strong>${PT(1)}。<br>b. <strong>又</strong>：表示更进一层的转折或补充，意为<strong>“再者、加上（虽然爱吃鱼脍，却又……）”</strong>${PT(1)}。`,
+        teacherAnalysis: "<strong>【课本原题：文言虚词辨析题】</strong>对应课本第29页第1题。第一个“又”连接母亲的第二个饮食喜好（好饮江水 → 又嗜鱼脍）；第二个“又”补充说明母亲进食时的特殊习惯（不能独食）。"
     },
     {
         id: 2,
-        question: `（二）为什么${U("姜诗")}夫妇做好鱼脍后，还要“召邻母共食”？这体现了他们怎样的品格？ <span style="color:var(--primary-color);">[3分]</span>`,
-        sampleAnswer: `因为母亲不习惯独自一人用餐（喜欢热闹分享）${PT(2)}。这体现了${U("姜诗")}夫妇体贴入微、善解人意（或孝顺且懂得体察母亲心意 / 睦邻友善）的品格${PT(1)}。`,
-        teacherAnalysis: "<strong>【理解与评价题】</strong>原文定位：第1段“又不能独食，召邻母共食。”前半问概括原因（2分），后半问评价人物品格（1分）。"
+        question: `（二）${U("姜诗")}和妻子${U("庞氏")}如何孝敬母亲？试结合全文用自己的话简要说明。 <span style="color:var(--primary-color);">[4分]</span>`,
+        sampleAnswer: `① 母亲生性喜欢喝江水，虽然江边距离住家有六七里远，妻子${U("庞氏")}仍天天不辞劳苦亲自去江边打水回来奉养婆婆${PT(1)}；<br>② 母亲特别爱吃切细的鱼肉（鱼脍），${U("姜诗")}夫妇就经常动手为她烹调${PT(1)}；<br>③ 母亲不习惯独自一人用餐，夫妇俩便主动邀请邻居家的老母亲过来陪母亲一起进餐${PT(1)}；<br>④ 后来屋旁涌出泉水并每天跃出两条鲤鱼，夫妇俩便取用泉水与双鲤来供养母亲${PT(1)}。`,
+        teacherAnalysis: "<strong>【课本原题：内容归纳题】</strong>对应课本第29页第2题。按事情发展顺序归纳四点孝行（每点1分），须用现代白话作答。"
     },
     {
         id: 3,
-        question: `（三）故事结尾房屋旁出现了什么奇景？作者这样写想要说明什么道理？ <span style="color:var(--primary-color);">[4分]</span>`,
-        sampleAnswer: `房屋旁边突然涌出一眼味道像江水一样的泉水${PT(1)}，而且泉里每天都会跳出两条鲤鱼${PT(1)}。本文说明了只要儿女至诚行孝，连天地也会被感动（或：百善孝为先，孝敬父母终会得到美好的回报）${PT(2)}。`,
-        teacherAnalysis: "<strong>【概括与主旨评价题】</strong>原文定位：第1段“舍侧忽有涌泉，味如江水，日跃双鲤，取以供。”先归纳奇景内容（2分），再提炼故事主旨道理（2分）。"
+        question: `（三）故事结尾写“舍侧忽有涌泉，味如江水，日跃双鲤”。你认为这个故事的情节符合现实逻辑吗？作者这样安排的目的是什么？<span style="background:var(--primary-color); color:#fff; font-size:11px; padding:1px 6px; border-radius:4px; margin-left:4px;">KBAT</span> <span style="color:var(--primary-color);">[5分]</span>`,
+        sampleAnswer: `<strong>不符合现实科学逻辑（或：带有神话巧合色彩）</strong>${PT(1)}。因为在现实自然界中，房屋旁很难恰好因行孝就突然冒出味道如江水的泉水，更不可能每天精准跳出两条鲤鱼${PT(2)}。<br>作者这样安排的目的：是为了体现“精诚所至，金石为开”（至孝感动天地）的思想，借神奇的祥瑞之象大力赞美${U("姜诗")}夫妇的至孝美德，并宣扬尊老敬老的孝文化思想，劝勉世人行孝${PT(2)}。`,
+        teacherAnalysis: "<strong>【课本原题：高阶思维 KBAT 逻辑评价与创作意图题】</strong>对应课本第27页页边批注及第29页第3题。先判断现实逻辑性并说明理由（3分），再点出宣扬孝道、褒扬孝子的写作目的（2分）。"
     },
     {
         id: 4,
@@ -159,16 +163,16 @@ const essayDataList = [
                   `b. ${HL("去")}舍六七里` +
                   `</div>`,
         sampleAnswer: `a. <strong>姑</strong>：婆婆（丈夫的母亲）${PT(1)}<br>b. <strong>去</strong>：距离 / 相距${PT(1)}`,
-        teacherAnalysis: "<strong>【文言实词释义题】</strong>重点考查古今异义词。切忌把“姑”误答为“姑妈”，把“去”误答为“前往”。"
+        teacherAnalysis: "<strong>【文言实词释义题】</strong>对应课本第27页注释4、6。重点考查古今异义词。"
     },
     {
         id: 5,
         question: `（五）将下面的文言句子译为现代汉语： <span style="color:var(--primary-color);">[4分]</span><br><span style="font-family:'KaiTi',serif; font-size:17px;">“母[性][好]饮江水，[去][舍]六七里，妻出[汲]以[奉][之]。”</span>`,
-        sampleAnswer: `母亲${KW("天性/生性")}${KW("喜欢/喜爱")}喝江水，（江边）${KW("距离")}${KW("房屋/住家")}有六七里远，妻子出门${KW("打水/取水")}来${KW("奉养/供奉")}${KW("她（婆婆）")}。<br>` +
+        sampleAnswer: `母亲${KW("天性/生性")}${KW("喜欢/喜爱")}喝江水，（江边）${KW("距离")}${KW("房屋/住处")}有六七里远，妻子出门${KW("去江边取水/打水")}来${KW("奉养/供奉")}${KW("她（婆婆）")}。<br>` +
                       `<div style="margin-top:8px; padding:6px 10px; background:var(--card-bg); border:1px dashed var(--input-border); border-radius:6px; font-size:12.5px; color:var(--text-muted);">` +
                       `📊 <strong>UASA 翻译评分折算表（共 7 个采分点）：</strong><br>` +
                       `✓ 1 个 ＝ <strong>1分</strong> &nbsp;｜&nbsp; ✓ 2–3 个 ＝ <strong>2分</strong> &nbsp;｜&nbsp; ✓ 4–5 个 ＝ <strong>3分</strong> &nbsp;｜&nbsp; ✓ 6–7 个 ＝ <strong>4分</strong>` +
                       `</div>`,
-        teacherAnalysis: "<strong>【文言翻译题】</strong>采用“留、补、删、换、调”五字法。7 个加框关键词（性、好、去、舍、汲、奉、之）翻译准确、补出省略主语“江边”且语句通顺，即可得满分 4 分。"
+        teacherAnalysis: "<strong>【文言翻译题】</strong>采用“留、补、删、换、调”五字法。7 个加框关键词翻译准确、补出省略主语“江边”且语句通顺，即可得满分 4 分。"
     }
 ];
