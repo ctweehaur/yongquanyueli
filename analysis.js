@@ -1,5 +1,5 @@
 // ==========================================================================
-// 📖 《涌泉跃鲤》深度文本赏析数据库 (analysis.js) - 含古今异义正反对比终极版
+// 📖 《涌泉跃鲤》深度文本赏析数据库 (analysis.js) - 古今异义上下双行对比版
 // ==========================================================================
 
 const U_TAG = (text) => `<span class="proper-noun">${text}</span>`;
@@ -8,7 +8,14 @@ const OMISSION_TAG = (role, text) =>
     `<span style="display:inline-block; background:var(--wrong-bg); color:var(--wrong-text); border:1px dashed var(--wrong-border); padding:0 6px; margin:0 2px; border-radius:4px; font-size:12.5px; font-weight:800;" title="文言省略句采分点：原文省略了${role}，考场翻译时必须补出">＋${role}：${text}</span>`;
 
 const GRAMMAR_TAG = (type, text) => 
-    `<span style="display:inline-block; background:var(--notebook-bg); color:var(--primary-color); border:1px solid rgba(43,76,101,0.22); padding:0 6px; margin:2px 2px; border-radius:4px; font-size:12px; font-weight:800;">${type}：${text}</span>`;
+    `<span style="display:inline-block; background:var(--notebook-bg); color:var(--primary-color); border:1px solid rgba(43,76,101,0.22); padding:2px 8px; margin:2px 4px 2px 0; border-radius:5px; font-size:12px; font-weight:800; vertical-align:top;">${type}：${text}</span>`;
+
+// 🏛️ 古今异义上下双行对比小卡片
+const ANCIENT_MODERN_TAG = (word, ancient, modern) => 
+    `<div style="display:inline-flex; flex-direction:column; background:var(--notebook-bg); border:1px solid rgba(43,76,101,0.22); padding:5px 10px; margin:3px 6px 3px 0; border-radius:6px; font-size:12px; line-height:1.55; vertical-align:middle;">` +
+        `<div style="color:var(--primary-color); font-weight:800;">🔹 【${word}】古义：${ancient}</div>` +
+        `<div style="color:var(--text-muted); font-weight:600; border-top:1px dashed var(--input-border); margin-top:2px; padding-top:2px;">🔸 【${word}】今义：${modern}</div>` +
+    `</div>`;
 
 const CARET = `<span style="color:var(--wrong-color); font-weight:800; padding:0 2px;" title="此处省略了句子成分">‸</span>`;
 
@@ -35,7 +42,7 @@ const lessonTeacherAnalysis = {
     paragraphs: {
         1: "<strong>【逐句白话直译与考场采分点对照（上文下译）】</strong>" +
            "<div style='font-size:12.5px; color:var(--wrong-text); background:var(--wrong-bg); border:1px dashed var(--wrong-border); padding:6px 12px; border-radius:6px; margin-top:8px; font-weight:600;'>" +
-               "💡 <strong>考场翻译图例：</strong>原文 <strong>‸</strong> 为省略位；译文中 <span style='border:1px dashed var(--wrong-border); padding:0 4px; border-radius:3px;'>＋主语/宾语</span> 为必补省略成分；<span style='background:var(--notebook-bg); color:var(--primary-color); border:1px solid rgba(43,76,101,0.22); padding:0 4px; border-radius:3px;'>古今异义/词法</span> 为防误译采分点。" +
+               "💡 <strong>考场翻译图例：</strong>原文 <strong>‸</strong> 为省略位；译文中 <span style='border:1px dashed var(--wrong-border); padding:0 4px; border-radius:3px;'>＋主语/宾语</span> 为必补省略成分；下方双行卡片直观对比 <strong>古义 vs 今义</strong>。" +
            "</div>" +
            "<div style='margin-top:10px; display:flex; flex-direction:column; gap:12px;'>" +
 
@@ -49,8 +56,10 @@ const lessonTeacherAnalysis = {
                        "<span style='display:inline-block; background:var(--notebook-bg); color:var(--primary-color); border:1px solid rgba(43,76,101,0.25); font-size:11px; font-weight:800; padding:0 6px; border-radius:4px; margin-right:8px;'>译</span>" +
                        U_TAG("东汉") + "人" + U_TAG("姜诗") + "，侍奉母亲最为孝顺。" + OMISSION_TAG("定语", "他的") + "妻子" + U_TAG("庞氏") + "，侍奉婆婆更加恭敬谨慎。" +
                    "</div>" +
-                   "<div style='font-size:12px; color:var(--text-muted); margin-top:6px; padding-top:5px; border-top:1px dashed var(--input-border); font-weight:600;'>" +
-                       "📌 " + GRAMMAR_TAG("古今异义", "姑：古义“婆婆” ≠ 今义“姑妈”") + GRAMMAR_TAG("古今异义", "事：古义动词“侍奉” ≠ 今义“事情”") + GRAMMAR_TAG("副词", "至＝极、最 / 尤＝更加") +
+                   "<div style='margin-top:8px; padding-top:6px; border-top:1px dashed var(--input-border);'>" +
+                       ANCIENT_MODERN_TAG("姑", "婆婆（丈夫的母亲）", "姑妈（父亲的姐妹）") +
+                       ANCIENT_MODERN_TAG("事", "侍奉、奉养（动词）", "事情、事务（名词）") +
+                       ANCIENT_MODERN_TAG("至", "极、最（程度副词）", "到、至于") +
                    "</div>" +
                "</div>" +
 
@@ -64,8 +73,11 @@ const lessonTeacherAnalysis = {
                        "<span style='display:inline-block; background:var(--notebook-bg); color:var(--primary-color); border:1px solid rgba(43,76,101,0.25); font-size:11px; font-weight:800; padding:0 6px; border-radius:4px; margin-right:8px;'>译</span>" +
                        "母亲天性喜爱喝江水，" + OMISSION_TAG("主语", "江边") + "距离家中房屋有六七里路，妻子" + U_TAG("庞氏") + "便出门去打" + OMISSION_TAG("宾语", "江水") + "回来奉养她（婆婆）。" +
                    "</div>" +
-                   "<div style='font-size:12px; color:var(--text-muted); margin-top:6px; padding-top:5px; border-top:1px dashed var(--input-border); font-weight:600;'>" +
-                       "📌 " + GRAMMAR_TAG("古今异义", "去：古义“距离” ≠ 今义“前往”") + GRAMMAR_TAG("破音字", "好(hào)＝喜爱") + GRAMMAR_TAG("实词", "舍(shè)＝房屋 / 汲＝打水") + GRAMMAR_TAG("代词", "之＝她（婆婆）") +
+                   "<div style='margin-top:8px; padding-top:6px; border-top:1px dashed var(--input-border);'>" +
+                       ANCIENT_MODERN_TAG("去", "距离、相距", "前往、到某处去") +
+                       ANCIENT_MODERN_TAG("舍", "房屋、住家（读 shè）", "舍弃、放弃（读 shě）") +
+                       GRAMMAR_TAG("破音字", "好(hào)＝喜爱") +
+                       GRAMMAR_TAG("实词/代词", "汲＝打水 ／ 之＝她（婆婆）") +
                    "</div>" +
                "</div>" +
 
@@ -79,8 +91,10 @@ const lessonTeacherAnalysis = {
                        "<span style='display:inline-block; background:var(--notebook-bg); color:var(--primary-color); border:1px solid rgba(43,76,101,0.25); font-size:11px; font-weight:800; padding:0 6px; border-radius:4px; margin-right:8px;'>译</span>" +
                        OMISSION_TAG("主语", "母亲") + "又酷爱吃切细的鱼肉，夫妻俩便经常烹制" + OMISSION_TAG("宾语", "鱼脍") + "。" + OMISSION_TAG("主语", "母亲") + "又不习惯独自用餐，" + OMISSION_TAG("主语", "夫妻俩") + "就邀请邻家的老母亲一起来陪她吃。" +
                    "</div>" +
-                   "<div style='font-size:12px; color:var(--text-muted); margin-top:6px; padding-top:5px; border-top:1px dashed var(--input-border); font-weight:600;'>" +
-                       "📌 " + GRAMMAR_TAG("高频陷阱", "暗换主语（母 → 夫妇 → 母 → 夫妇）") + GRAMMAR_TAG("实词", "嗜＝酷爱 / 鱼脍＝切细的鱼肉 / 召＝邀请") +
+                   "<div style='margin-top:8px; padding-top:6px; border-top:1px dashed var(--input-border);'>" +
+                       ANCIENT_MODERN_TAG("不能", "不习惯、不忍心", "没有能力做到") +
+                       GRAMMAR_TAG("高频陷阱", "暗换主语（母 → 夫妇 → 母 → 夫妇）") +
+                       GRAMMAR_TAG("实词", "嗜＝酷爱 ／ 鱼脍＝切细的鱼肉 ／ 召＝邀请") +
                    "</div>" +
                "</div>" +
 
@@ -94,8 +108,9 @@ const lessonTeacherAnalysis = {
                        "<span style='display:inline-block; background:var(--notebook-bg); color:var(--primary-color); border:1px solid rgba(43,76,101,0.25); font-size:11px; font-weight:800; padding:0 6px; border-radius:4px; margin-right:8px;'>译</span>" +
                        "房屋旁边忽然冒出一眼涌泉，" + OMISSION_TAG("主语", "泉水") + "味道如同江水一般，" + OMISSION_TAG("状语", "泉中") + "每天还会跳出两条鲤鱼，" + OMISSION_TAG("主语", "夫妻俩") + "便取来" + OMISSION_TAG("宾语", "泉水与双鲤") + "用以供养" + OMISSION_TAG("宾语", "母亲") + "。" +
                    "</div>" +
-                   "<div style='font-size:12px; color:var(--text-muted); margin-top:6px; padding-top:5px; border-top:1px dashed var(--input-border); font-weight:600;'>" +
-                       "📌 " + GRAMMAR_TAG("词类活用", "日：名词作状语“每天” ≠ 普通名词“太阳”") + GRAMMAR_TAG("破音字", "供(gōng)＝供给、奉养") +
+                   "<div style='margin-top:8px; padding-top:6px; border-top:1px dashed var(--input-border);'>" +
+                       ANCIENT_MODERN_TAG("日", "每天、每日（名词作状语）", "太阳、日子（普通名词）") +
+                       GRAMMAR_TAG("破音字", "供(gōng)＝供给、奉养") +
                    "</div>" +
                "</div>" +
 
